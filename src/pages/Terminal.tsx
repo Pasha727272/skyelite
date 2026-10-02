@@ -7,6 +7,8 @@ import { MarqueeTicker } from "../components/MarqueeTicker";
 const TABS = ["OATH", "BREAK", "REPAY", "BOOK", "DESK"] as const;
 const STIO_PRICE = 0.48;
 const DEFAULT_DAYS = 90;
+const TERM_MIN_DAYS = 14;
+const TERM_MAX_DAYS = 365;
 
 function num(raw: string) {
   const n = Number(String(raw).replace(/,/g, ""));
@@ -30,6 +32,11 @@ function ltvFor(days: number) {
   return 0.2;
 }
 
+function clampTermDays(raw: number) {
+  const n = Number.isFinite(raw) && raw > 0 ? raw : DEFAULT_DAYS;
+  return Math.min(TERM_MAX_DAYS, Math.max(TERM_MIN_DAYS, Math.round(n)));
+}
+
 export function Terminal() {
   const [tab, setTab] = useState<(typeof TABS)[number]>("OATH");
   const [amount, setAmount] = useState("");
@@ -43,7 +50,7 @@ export function Terminal() {
   const [loaded, setLoaded] = useState(false);
 
   const locked = num(amount);
-  const termDays = Math.max(14, num(days) || DEFAULT_DAYS);
+  const termDays = clampTermDays(num(days) || DEFAULT_DAYS);
   const floorPx = num(floor);
   const collateralUsd = locked * STIO_PRICE;
   const ltv = ltvFor(termDays);
@@ -64,7 +71,11 @@ export function Terminal() {
     debtBase > 0 ? Math.min(100, (premium / Math.max(debtBase, 1)) * 100) : premium > 0 ? 100 : 0;
   const years = termDays / 365;
   const debtCoverPct = maxDraw > 0 ? Math.min(100, (effectiveDebt / maxDraw) * 100) : 0;
-  const sliderFill = `${((termDays - 14) / (365 - 14)) * 100}%`;
+  const sliderFill = `${((termDays - TERM_MIN_DAYS) / (TERM_MAX_DAYS - TERM_MIN_DAYS)) * 100}%`;
+
+  function setTermDays(next: number) {
+    setDays(String(clampTermDays(next)));
+  }
   const tickerText = `TIMELOCK 10 MIN · $STIO $${STIO_PRICE.toFixed(2)} · USD-S 1.0001 · GRADE ${grade} · LTV ${(ltv * 100).toFixed(0)}% · CAPS APPLY · OATHS RUN TO THEIR DATE`;
 
   const headerStats = useMemo(
@@ -185,7 +196,14 @@ export function Terminal() {
                   <input
                     inputMode="numeric"
                     value={days}
-                    onChange={(e) => setDays(e.target.value.replace(/[^\d]/g, "") || String(DEFAULT_DAYS))}
+                    onChange={(e) => {
+                      const digits = e.target.value.replace(/[^\d]/g, "");
+                      if (!digits) {
+                        setDays("");
+                        return;
+                      }
+                      setTermDays(Number(digits));
+                    }}
                     placeholder="e.g. 90"
                     className="w-full rounded-xl border border-[#2a2a2a] bg-black px-3 py-3 text-sm outline-none placeholder:text-[#5a5a5a] focus:border-[#ccff00]/40"
                   />
@@ -478,7 +496,7 @@ export function Terminal() {
                 <div className="flex items-center justify-between">
                   <dt className="text-[#9a9a9a]">days remaining</dt>
                   <dd className="text-[#ccff00]">
-                    <AnimatedNumber value={termDays} decimals={0} />
+                    <AnimatedNumber value={termDays} decimals={0} min={0} />
                   </dd>
                 </div>
               </dl>
@@ -488,17 +506,17 @@ export function Terminal() {
               </div>
               <input
                 type="range"
-                min={14}
-                max={365}
+                min={TERM_MIN_DAYS}
+                max={TERM_MAX_DAYS}
                 step={1}
                 value={termDays}
-                onChange={(e) => setDays(e.target.value)}
+                onChange={(e) => setTermDays(Number(e.target.value))}
                 className="term-slider mb-3 w-full"
                 style={{ ["--fill" as string]: sliderFill }}
                 aria-label="Term length in days"
               />
               <div className="mb-4 text-2xl font-light text-[#ccff00]">
-                <AnimatedNumber value={years} decimals={2} />{" "}
+                <AnimatedNumber value={years} decimals={2} min={0} />{" "}
                 <span className="text-sm font-normal text-[#9a9a9a]">YEARS</span>
               </div>
               <p className="text-xs font-normal leading-relaxed text-[#9a9a9a]">

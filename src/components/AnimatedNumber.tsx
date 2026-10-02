@@ -7,11 +7,14 @@ type AnimatedNumberProps = {
   suffix?: string;
   className?: string;
   duration?: number;
+  /** When set, animated/displayed values never go below this (avoids negative flash). */
+  min?: number;
 };
 
-function format(n: number, decimals: number) {
+function format(n: number, decimals: number, min?: number) {
   if (!Number.isFinite(n)) return "—";
-  return n.toLocaleString("en-US", {
+  const v = min !== undefined ? Math.max(min, n) : n;
+  return v.toLocaleString("en-US", {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });
@@ -24,14 +27,18 @@ export function AnimatedNumber({
   suffix = "",
   className = "",
   duration = 450,
+  min,
 }: AnimatedNumberProps) {
-  const [display, setDisplay] = useState(value);
-  const displayRef = useRef(value);
+  const safeValue =
+    min !== undefined && Number.isFinite(value) ? Math.max(min, value) : value;
+  const [display, setDisplay] = useState(safeValue);
+  const displayRef = useRef(safeValue);
   const frameRef = useRef(0);
 
   useEffect(() => {
-    const from = displayRef.current;
-    const to = value;
+    const from =
+      min !== undefined ? Math.max(min, displayRef.current) : displayRef.current;
+    const to = safeValue;
     if (from === to) return;
 
     const start = performance.now();
@@ -40,7 +47,8 @@ export function AnimatedNumber({
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / duration);
       const eased = 1 - Math.pow(1 - t, 3);
-      const next = from + (to - from) * eased;
+      let next = from + (to - from) * eased;
+      if (min !== undefined) next = Math.max(min, next);
       displayRef.current = next;
       setDisplay(next);
       if (t < 1) frameRef.current = requestAnimationFrame(tick);
@@ -52,12 +60,12 @@ export function AnimatedNumber({
 
     frameRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameRef.current);
-  }, [value, duration]);
+  }, [safeValue, duration, min]);
 
   return (
     <span className={`tabular-nums ${className}`}>
       {prefix}
-      {format(display, decimals)}
+      {format(display, decimals, min)}
       {suffix}
     </span>
   );
