@@ -23,7 +23,9 @@ export function CopyCA({ className = "" }: { className?: string }) {
       className={`inline-flex items-center gap-2 rounded-full border border-[#2a2a2a] bg-[#121212] px-3 py-2 text-[10px] font-semibold tracking-[0.12em] text-[#cfcfcf] transition-colors hover:border-[#ccff00]/50 hover:text-white ${className}`}
     >
       <span className="text-[#9a9a9a]">CA</span>
-      <span className="font-medium text-white">{CONTRACT_SHORT}</span>
+      <span className="inline-block min-w-[7.5rem] font-medium text-white">
+        {CONTRACT_SHORT}
+      </span>
       {copied ? (
         <Check size={14} className="text-[#7dffa0]" />
       ) : (

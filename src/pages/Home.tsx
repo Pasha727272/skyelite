@@ -10,13 +10,13 @@ LOOP:
 PERSONAS: Oath maker | Break buyer
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { SiteHeader } from "../components/SiteHeader";
 import { MetalLink } from "../components/MetalButton";
 import { MarqueeTicker } from "../components/MarqueeTicker";
 import { HeroPortrait } from "../components/HeroPortrait";
-import { CONTRACT_ADDRESS, CONTRACT_SHORT } from "../constants";
+import { RevealOnScroll } from "../components/RevealOnScroll";
 
 const STEPS = [
   {
@@ -149,23 +149,52 @@ const PATH_HEIGHTS = [
 export function Home() {
   const [ladder, setLadder] = useState(2);
 
+  // Old #hero / #top hashes should land at absolute page top
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash === "hero" || hash === "top" || hash === "") {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      if (hash === "hero" || hash === "top") {
+        window.history.replaceState(null, "", window.location.pathname);
+      }
+    }
+  }, []);
+
   return (
-    <div className="min-h-screen bg-black text-[#f5f5f5]">
+    <div
+      className="min-h-screen bg-black text-[#f5f5f5]"
+      style={{ ["--top-band" as string]: "4.75rem" }}
+    >
       <SiteHeader />
 
-      <section className="grid-bg relative overflow-hidden border-b border-[#2a2a2a]">
-        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-14 md:grid-cols-[1fr_1fr] md:gap-8 md:px-5 md:py-20 lg:gap-6 lg:px-6">
-          <div className="max-w-xl justify-self-start md:-translate-x-2 lg:-translate-x-4 xl:-translate-x-6">
-            <div className="mb-6 inline-flex rounded-full border border-[#ccff00]/40 px-3 py-1 text-[10px] tracking-[0.18em] text-[#ccff00]">
+      <section
+        id="top"
+        className="grid-bg-hero relative min-h-[100svh] overflow-hidden border-b border-[#2a2a2a]"
+      >
+        {/*
+          --top-band clears the compact fixed header.
+          Content starts just under it (items-start) — no tall empty band
+          from vertical centering between чёлка and Franklin.
+        */}
+        <div className="box-border min-h-[100svh] pt-[var(--top-band)]">
+          <div className="mx-auto grid w-full max-w-7xl items-start gap-8 px-4 pb-12 pt-3 md:grid-cols-[1fr_1fr] md:gap-8 md:px-5 md:pb-14 md:pt-4 lg:gap-6 lg:px-6">
+          <div className="hero-copy max-w-xl justify-self-start self-center md:-translate-x-2 lg:-translate-x-4 xl:-translate-x-6">
+            <div className="hero-in hero-in-1 mb-6 inline-flex rounded-full border border-[#ccff00]/40 px-3 py-1 text-[10px] tracking-[0.18em] text-[#ccff00]">
               · STATIO PROTOCOL · $STIO · USD-S ·
             </div>
             <h1 className="mb-5 text-4xl leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
-              <span className="block bg-gradient-to-b from-white to-[#d4b87a] bg-clip-text text-transparent">
-                KEEP THE COIN.
+              <span className="hero-line hero-line-1 block overflow-hidden">
+                <span className="hero-line-inner block bg-gradient-to-b from-white to-[#d4b87a] bg-clip-text text-transparent">
+                  KEEP THE COIN.
+                </span>
               </span>
-              <span className="block text-[#ccff00]">TAKE THE CASH.</span>
+              <span className="hero-line hero-line-2 block overflow-hidden">
+                <span className="hero-line-inner block text-[#ccff00]">
+                  TAKE THE CASH.
+                </span>
+              </span>
             </h1>
-            <div className="mb-8 border-l-2 border-[#ccff00] pl-4 text-sm font-normal leading-relaxed text-[#cfcfcf] md:text-base">
+            <div className="hero-in hero-in-3 hero-lede mb-8 pl-4 text-sm font-normal leading-relaxed text-[#cfcfcf] md:text-base">
               You need liquidity but you will not sell. Open a{" "}
               <span className="font-semibold text-white">Oath</span> — do not sell
               for N days / below price X. Protocol mints{" "}
@@ -176,7 +205,7 @@ export function Home() {
                 Your upside stays yours.
               </span>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="hero-in hero-in-4 flex flex-wrap gap-3">
               <MetalLink
                 to="/terminal"
                 className="gap-2 px-6 py-3 text-[12px]"
@@ -187,6 +216,7 @@ export function Home() {
           </div>
 
           <HeroPortrait />
+          </div>
         </div>
       </section>
 
@@ -225,23 +255,31 @@ export function Home() {
             </p>
           </div>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {STEPS.map((s) => (
-              <div
+            {STEPS.map((s, i) => (
+              <RevealOnScroll
                 key={s.n}
-                className={`panel flex flex-col p-5 ${
-                  "active" in s && s.active ? "border-[#ccff00]" : ""
-                }`}
+                variant="up"
+                delay={i * 90}
+                className="h-full"
               >
-                <div className="mb-3 text-[11px] tracking-[0.14em] text-[#ccff00]">
-                  {s.n} {s.title}
+                <div
+                  className={`frame-form flex h-full flex-col p-5 ${
+                    "active" in s && s.active ? "border-[#ccff00]" : ""
+                  }`}
+                >
+                  <span className="frame-form-corners" aria-hidden />
+                  <span className="frame-form-mark">ST-{s.n}</span>
+                  <div className="mb-3 text-[11px] tracking-[0.14em] text-[#ccff00]">
+                    {s.n} {s.title}
+                  </div>
+                  <p className="mb-6 flex-1 text-sm font-normal leading-relaxed text-[#cfcfcf]">
+                    {s.body}
+                  </p>
+                  <div className="border-t border-[#2a2a2a] pt-3 text-[10px] tracking-[0.12em] text-[#9a9a9a]">
+                    {s.form}
+                  </div>
                 </div>
-                <p className="mb-6 flex-1 text-sm font-normal leading-relaxed text-[#cfcfcf]">
-                  {s.body}
-                </p>
-                <div className="border-t border-[#2a2a2a] pt-3 text-[10px] tracking-[0.12em] text-[#9a9a9a]">
-                  {s.form}
-                </div>
-              </div>
+              </RevealOnScroll>
             ))}
           </div>
         </div>
@@ -280,55 +318,58 @@ export function Home() {
               </p>
             </div>
 
-            <div className="panel relative overflow-hidden p-6">
-              <div className="absolute top-0 bottom-0 left-0 flex w-4 flex-col items-center justify-evenly py-4">
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <span
-                    key={i}
-                    className="h-1.5 w-1.5 rounded-full bg-[#2a2a2a]"
-                  />
-                ))}
-              </div>
-              <div className="pl-4">
-                <div className="mb-6 flex items-start justify-between">
-                  <div>
-                    <div className="text-[10px] tracking-[0.16em] text-[#9a9a9a]">
-                      OATH RECEIPT
-                    </div>
-                    <div className="text-lg">#184 · $STIO</div>
-                  </div>
-                  <div className="stamp">ACTIVE</div>
-                </div>
-                <dl className="space-y-3 text-sm">
-                  {[
-                    ["LOCKED", "42,000 $STIO"],
-                    ["TERM", "90D · FLOOR $0.42"],
-                    ["DRAWN", "18,600 USD-S"],
-                    ["DEBT LEFT", "11,240 USD-S"],
-                  ].map(([k, v]) => (
-                    <div
-                      key={k}
-                      className="flex items-center justify-between border-b border-[#2a2a2a] pb-2"
-                    >
-                      <dt className="text-[10px] tracking-[0.14em] text-[#9a9a9a]">
-                        {k}
-                      </dt>
-                      <dd
-                        className={
-                          k === "DEBT LEFT" ? "text-[#ccff00]" : "text-white"
-                        }
-                      >
-                        {v}
-                      </dd>
-                    </div>
+            <RevealOnScroll variant="ticket" delay={120}>
+              <div className="frame-ticket relative overflow-hidden p-6 pl-8">
+                <span className="frame-ticket-stripe" aria-hidden />
+                <div className="absolute top-0 bottom-0 left-0 z-[1] flex w-5 flex-col items-center justify-evenly py-5">
+                  {Array.from({ length: 12 }).map((_, i) => (
+                    <span
+                      key={i}
+                      className="h-1.5 w-1.5 rounded-full bg-[#3a3a3a] ring-1 ring-[#ccff00]/15"
+                    />
                   ))}
-                </dl>
-                <p className="mt-5 text-[10px] font-normal tracking-[0.08em] text-[#9a9a9a]">
-                  Hold to term → debt nearly cleared. Break early → penalty to
-                  Break buyers + protocol pool.
-                </p>
+                </div>
+                <div className="relative z-[1] pl-2">
+                  <div className="mb-6 flex items-start justify-between gap-3">
+                    <div>
+                      <div className="text-[10px] tracking-[0.16em] text-[#9a9a9a]">
+                        OATH RECEIPT
+                      </div>
+                      <div className="text-lg">#184 · $STIO</div>
+                    </div>
+                    <div className="stamp">ACTIVE</div>
+                  </div>
+                  <dl className="space-y-3 text-sm">
+                    {[
+                      ["LOCKED", "42,000 $STIO"],
+                      ["TERM", "90D · FLOOR $0.42"],
+                      ["DRAWN", "18,600 USD-S"],
+                      ["DEBT LEFT", "11,240 USD-S"],
+                    ].map(([k, v]) => (
+                      <div
+                        key={k}
+                        className="flex items-center justify-between border-b border-[#2a2a2a] pb-2"
+                      >
+                        <dt className="text-[10px] tracking-[0.14em] text-[#9a9a9a]">
+                          {k}
+                        </dt>
+                        <dd
+                          className={
+                            k === "DEBT LEFT" ? "text-[#ccff00]" : "text-white"
+                          }
+                        >
+                          {v}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <p className="mt-5 text-[10px] font-normal tracking-[0.08em] text-[#9a9a9a]">
+                    Hold to term → debt nearly cleared. Break early → penalty to
+                    Break buyers + protocol pool.
+                  </p>
+                </div>
               </div>
-            </div>
+            </RevealOnScroll>
           </div>
         </div>
       </section>
@@ -419,9 +460,9 @@ export function Home() {
 
       <section
         id="break"
-        className="border-b border-[#2a2a2a] px-5 py-16 md:px-8 md:py-20"
+        className="relative overflow-hidden border-b border-[#2a2a2a] px-5 py-16 md:px-8 md:py-20"
       >
-        <div className="mx-auto max-w-7xl">
+        <div className="relative z-10 mx-auto max-w-7xl">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-3xl tracking-tight md:text-4xl">
               <span className="text-[#ccff00]">§ 05</span>{" "}
@@ -433,37 +474,50 @@ export function Home() {
             </p>
           </div>
           <div className="grid gap-8 lg:grid-cols-2">
-            <div className="panel p-6">
-              <div className="mb-4 flex items-center justify-between">
-                <span className="text-[10px] tracking-[0.16em] text-[#ccff00]">
-                  BREAK BOOK // LIVE
-                </span>
-                <span className="stamp !rotate-[-8deg]">OPEN</span>
-              </div>
-              <dl className="space-y-3 text-sm">
-                {[
-                  ["OPEN INTEREST", "$84,200"],
-                  ["PREMIUM FLOW", "$420 / hr"],
-                  ["DEBT COVERED", "39%"],
-                  ["ON BREAK → BUYERS", "Penalty share"],
-                  ["ON BREAK → POOL", "Protocol cut"],
-                ].map(([k, v]) => (
-                  <div
-                    key={k}
-                    className="flex justify-between border-b border-[#2a2a2a] pb-2"
-                  >
-                    <dt className="text-[10px] tracking-[0.12em] text-[#9a9a9a]">
-                      {k}
-                    </dt>
-                    <dd className="text-[#ccff00]">{v}</dd>
+            <RevealOnScroll variant="ticket" delay={80} className="relative z-10">
+              <div className="frame-ticket relative overflow-hidden p-6 pl-8">
+                <span className="frame-ticket-stripe" aria-hidden />
+                <div className="absolute top-0 bottom-0 left-0 z-[1] flex w-5 flex-col items-center justify-evenly py-5">
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <span
+                      key={i}
+                      className="h-1.5 w-1.5 rounded-full bg-[#3a3a3a] ring-1 ring-[#ccff00]/15"
+                    />
+                  ))}
+                </div>
+                <div className="relative z-[1] pl-2">
+                  <div className="mb-4 flex items-center justify-between gap-3">
+                    <span className="text-[10px] tracking-[0.16em] text-[#ccff00]">
+                      BREAK BOOK // LIVE
+                    </span>
+                    <span className="stamp !rotate-[-8deg]">OPEN</span>
                   </div>
-                ))}
-              </dl>
-              <MetalLink to="/terminal" className="mt-6">
-                BUY BREAK
-              </MetalLink>
-            </div>
-            <div className="space-y-4 text-sm font-normal leading-relaxed text-[#cfcfcf]">
+                  <dl className="space-y-3 text-sm">
+                    {[
+                      ["OPEN INTEREST", "$84,200"],
+                      ["PREMIUM FLOW", "$420 / hr"],
+                      ["DEBT COVERED", "39%"],
+                      ["ON BREAK → BUYERS", "Penalty share"],
+                      ["ON BREAK → POOL", "Protocol cut"],
+                    ].map(([k, v]) => (
+                      <div
+                        key={k}
+                        className="flex justify-between border-b border-[#2a2a2a] pb-2"
+                      >
+                        <dt className="text-[10px] tracking-[0.12em] text-[#9a9a9a]">
+                          {k}
+                        </dt>
+                        <dd className="text-[#ccff00]">{v}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <MetalLink to="/terminal" className="mt-6">
+                    BUY BREAK
+                  </MetalLink>
+                </div>
+              </div>
+            </RevealOnScroll>
+            <div className="relative z-10 min-h-[280px] space-y-4 text-sm font-normal leading-relaxed text-[#cfcfcf] md:min-h-[320px]">
               <p>
                 Their premiums + fees from this market pay down your debt while
                 you hold.
@@ -476,11 +530,25 @@ export function Home() {
                 Break the oath early → the penalty goes to Break buyers and the
                 protocol pool.
               </p>
-              <p className="text-[#9a9a9a]">
+              <p className="relative z-10 text-[#9a9a9a]">
                 Two sides. One loop. The desk does not need you to sell.
               </p>
             </div>
           </div>
+        </div>
+
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-0 w-[min(52%,420px)] overflow-hidden"
+          aria-hidden
+        >
+          <img
+            src="/break-skull.png"
+            alt=""
+            className="break-skull absolute bottom-0 right-0 h-[88%] max-h-[520px] w-auto max-w-none object-contain object-right-bottom opacity-[0.88]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-black/90" />
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black to-transparent" />
         </div>
       </section>
 
@@ -543,25 +611,8 @@ export function Home() {
           <p className="mb-10 text-sm tracking-[0.12em] text-[#9a9a9a]">
             $STIO · FIXED SUPPLY · OATH COLLATERAL
           </p>
-          <div className="grid gap-4 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2">
             <div className="panel border-[#ccff00]/50 p-5">
-              <div className="mb-3 text-[10px] tracking-[0.16em] text-[#ccff00]">
-                CONTRACT ADDRESS
-              </div>
-              <div className="flex items-center gap-2 rounded-lg bg-black px-3 py-3 text-xs text-[#cfcfcf]">
-                <span className="truncate font-normal" title={CONTRACT_ADDRESS}>
-                  {CONTRACT_SHORT}
-                </span>
-                <button
-                  type="button"
-                  className="shrink-0 text-[10px] tracking-wider text-[#ccff00]"
-                  onClick={() => navigator.clipboard.writeText(CONTRACT_ADDRESS)}
-                >
-                  COPY
-                </button>
-              </div>
-            </div>
-            <div className="panel p-5">
               <div className="mb-3 text-[10px] tracking-[0.16em] text-[#ccff00]">
                 WHAT $STIO DOES
               </div>

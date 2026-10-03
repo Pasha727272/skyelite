@@ -98,11 +98,14 @@ export function Terminal() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-[#f5f5f5]">
+    <div
+      className="min-h-screen bg-black text-[#f5f5f5]"
+      style={{ ["--top-band" as string]: "4.25rem" }}
+    >
       <SiteHeader variant="terminal" />
 
-      <div className="grid-bg border-b border-[#2a2a2a]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-8 md:flex-row md:items-end md:justify-between md:px-8">
+      <div className="grid-bg border-b border-[#2a2a2a] pt-[var(--top-band)]">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 pb-7 pt-3 md:flex-row md:items-end md:justify-between md:px-8 md:pt-4">
           <div>
             <div className="mb-2 text-[10px] tracking-[0.18em] text-[#ccff00]">
               DESK TERMINAL
@@ -478,25 +481,31 @@ export function Terminal() {
                 <div className="flex items-center justify-between">
                   <dt className="text-[#9a9a9a]">premium inflow</dt>
                   <dd className="text-[#ccff00]">
-                    <AnimatedNumber value={premiumPerHour * 24} decimals={2} prefix="$" suffix="/d" />
+                    <AnimatedNumber
+                      instant
+                      value={premiumPerHour * 24}
+                      decimals={2}
+                      prefix="$"
+                      suffix="/d"
+                    />
                   </dd>
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-[#9a9a9a]">break cover</dt>
                   <dd className="text-[#ccff00]">
-                    <AnimatedNumber value={breakCover} decimals={1} suffix="%" />
+                    <AnimatedNumber instant value={breakCover} decimals={1} suffix="%" />
                   </dd>
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-[#9a9a9a]">debt left</dt>
                   <dd className="text-[#ccff00]">
-                    <AnimatedNumber value={effectiveDebt} decimals={0} prefix="$" />
+                    <AnimatedNumber instant value={effectiveDebt} decimals={0} prefix="$" />
                   </dd>
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-[#9a9a9a]">days remaining</dt>
                   <dd className="text-[#ccff00]">
-                    <AnimatedNumber value={termDays} decimals={0} min={0} />
+                    <AnimatedNumber instant value={termDays} decimals={0} min={0} />
                   </dd>
                 </div>
               </dl>
@@ -515,8 +524,14 @@ export function Terminal() {
                 style={{ ["--fill" as string]: sliderFill }}
                 aria-label="Term length in days"
               />
-              <div className="mb-4 text-2xl font-light text-[#ccff00]">
-                <AnimatedNumber value={years} decimals={2} min={0} />{" "}
+              <div className="mb-4 flex items-baseline gap-2 text-2xl font-light text-[#ccff00]">
+                <AnimatedNumber
+                  instant
+                  value={years}
+                  decimals={2}
+                  min={0}
+                  className="inline-block min-w-[4.75ch]"
+                />
                 <span className="text-sm font-normal text-[#9a9a9a]">YEARS</span>
               </div>
               <p className="text-xs font-normal leading-relaxed text-[#9a9a9a]">

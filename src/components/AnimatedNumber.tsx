@@ -7,6 +7,8 @@ type AnimatedNumberProps = {
   suffix?: string;
   className?: string;
   duration?: number;
+  /** Skip tween — for live sliders / scrubbing. */
+  instant?: boolean;
   /** When set, animated/displayed values never go below this (avoids negative flash). */
   min?: number;
 };
@@ -27,6 +29,7 @@ export function AnimatedNumber({
   suffix = "",
   className = "",
   duration = 450,
+  instant = false,
   min,
 }: AnimatedNumberProps) {
   const safeValue =
@@ -36,6 +39,13 @@ export function AnimatedNumber({
   const frameRef = useRef(0);
 
   useEffect(() => {
+    if (instant) {
+      cancelAnimationFrame(frameRef.current);
+      displayRef.current = safeValue;
+      setDisplay(safeValue);
+      return;
+    }
+
     const from =
       min !== undefined ? Math.max(min, displayRef.current) : displayRef.current;
     const to = safeValue;
@@ -60,12 +70,14 @@ export function AnimatedNumber({
 
     frameRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameRef.current);
-  }, [safeValue, duration, min]);
+  }, [safeValue, duration, min, instant]);
+
+  const shown = instant ? safeValue : display;
 
   return (
-    <span className={`tabular-nums ${className}`}>
+    <span className={`font-mono tabular-nums ${className}`}>
       {prefix}
-      {format(display, decimals, min)}
+      {format(shown, decimals, min)}
       {suffix}
     </span>
   );

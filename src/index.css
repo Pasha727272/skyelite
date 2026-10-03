@@ -11,14 +11,15 @@
   --accent-2: #d7ff00;
   --good: #7dffa0;
   --bad: #ff5a3d;
+  /* Matches logo metal: bright lime highlight → deep olive */
   --metal: linear-gradient(
-    112deg,
-    #f2d2c0 0%,
-    #e4b49a 18%,
-    #d8cfc8 38%,
-    #b7c0cc 58%,
-    #8fa3b8 78%,
-    #6f86a0 100%
+    145deg,
+    #f4ff7a 0%,
+    #dfff00 16%,
+    #ccff00 34%,
+    #a8e000 55%,
+    #6f9a00 78%,
+    #3d5600 100%
   );
   --font: "Inter", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", "SF Mono", ui-monospace, monospace;
@@ -30,6 +31,8 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #ccff00 #0a0a0a;
 }
 
 body {
@@ -49,10 +52,11 @@ body {
 .metal-btn {
   background-image: var(--metal);
   color: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 180, 0.45);
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.65),
-    inset 0 -2px 3px rgba(40, 50, 70, 0.28),
+    inset 0 1px 1px rgba(255, 255, 220, 0.7),
+    inset 0 -2px 3px rgba(40, 70, 0, 0.35),
+    0 3px 10px rgba(204, 255, 0, 0.18),
     0 3px 8px rgba(0, 0, 0, 0.35);
   transition:
     transform 180ms ease,
@@ -62,11 +66,12 @@ body {
 }
 
 .metal-btn:hover {
-  filter: brightness(1.05);
+  filter: brightness(1.06);
   transform: scale(1.045);
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.7),
-    inset 0 -2px 3px rgba(40, 50, 70, 0.22),
+    inset 0 1px 1px rgba(255, 255, 220, 0.75),
+    inset 0 -2px 3px rgba(40, 70, 0, 0.28),
+    0 6px 18px rgba(204, 255, 0, 0.28),
     0 6px 14px rgba(0, 0, 0, 0.4);
 }
 
@@ -92,6 +97,98 @@ body {
 .header-on-lime:hover {
   border-color: rgba(0, 0, 0, 0.4) !important;
   background: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Hero copy — load-in */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes hero-line-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 110%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-rule {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.hero-in {
+  opacity: 0;
+  animation: hero-rise 820ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-in-1 {
+  animation-delay: 120ms;
+}
+
+.hero-in-3 {
+  animation-delay: 520ms;
+}
+
+.hero-in-4 {
+  animation-delay: 700ms;
+}
+
+.hero-line-inner {
+  opacity: 0;
+  animation: hero-line-up 780ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-line-1 .hero-line-inner {
+  animation-delay: 220ms;
+}
+
+.hero-line-2 .hero-line-inner {
+  animation-delay: 380ms;
+}
+
+.hero-lede {
+  position: relative;
+}
+
+.hero-lede::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: #ccff00;
+  transform: scaleY(0);
+  transform-origin: top;
+  animation: hero-rule 700ms cubic-bezier(0.22, 1, 0.36, 1) 520ms forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-in,
+  .hero-line-inner,
+  .hero-lede::before {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
+  }
 }
 
 .hero-portrait-img {
@@ -175,6 +272,157 @@ body {
   transform: rotate(-12deg);
 }
 
+/* Scroll reveals */
+.reveal {
+  opacity: 0;
+  will-change: transform, opacity, filter;
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 700ms ease;
+}
+
+.reveal-up {
+  transform: translate3d(0, 36px, 0);
+}
+
+.reveal-left {
+  transform: translate3d(40px, 0, 0);
+}
+
+.reveal-scale {
+  transform: scale(0.94);
+  filter: blur(2px);
+}
+
+.reveal-ticket {
+  transform: translate3d(0, 28px, 0) rotate(-1.2deg);
+  filter: blur(1px);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
+/* Terminal / form frame — corner brackets */
+.frame-form {
+  position: relative;
+  border: 1px solid rgba(204, 255, 0, 0.28);
+  background:
+    linear-gradient(180deg, rgba(204, 255, 0, 0.04), transparent 40%),
+    #0c0c0c;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 0 28px rgba(204, 255, 0, 0.06);
+}
+
+.frame-form::before,
+.frame-form::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: #ccff00;
+  border-style: solid;
+  pointer-events: none;
+}
+
+.frame-form::before {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+}
+
+.frame-form::after {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 2px 2px 0;
+}
+
+.frame-form-corners {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.frame-form-corners::before,
+.frame-form-corners::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: #ccff00;
+  border-style: solid;
+}
+
+.frame-form-corners::before {
+  top: -1px;
+  right: -1px;
+  border-width: 2px 2px 0 0;
+}
+
+.frame-form-corners::after {
+  bottom: -1px;
+  left: -1px;
+  border-width: 0 0 2px 2px;
+}
+
+.frame-form-mark {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: rgba(204, 255, 0, 0.55);
+}
+
+/* Punch-ticket / receipt frame */
+.frame-ticket {
+  position: relative;
+  border: 1px solid rgba(204, 255, 0, 0.35);
+  background:
+    linear-gradient(180deg, rgba(204, 255, 0, 0.05), transparent 35%),
+    #0c0c0c;
+  box-shadow:
+    0 0 0 1px rgba(204, 255, 0, 0.08),
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    0 0 32px rgba(204, 255, 0, 0.08);
+}
+
+.frame-ticket::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px dashed rgba(204, 255, 0, 0.18);
+  pointer-events: none;
+}
+
+.frame-ticket-stripe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 22px;
+  width: 1px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(204, 255, 0, 0.35) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .ticker-rail {
   position: relative;
 }
@@ -211,6 +459,28 @@ body {
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.break-skull {
+  filter: saturate(1.15) contrast(1.08) brightness(1.02);
+  mask-image: linear-gradient(
+    to left,
+    #000 55%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to left,
+    #000 55%,
+    transparent 100%
+  );
+}
+
+/* Hero: grid ~10% stronger than prior (0.0324 → 0.03564) */
+.grid-bg-hero {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03564) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03564) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
@@ -276,7 +546,7 @@ input[type="range"].term-slider::-moz-range-track {
 input[type="range"].term-slider::-moz-range-progress {
   height: 6px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #ccff00, #b8f000);
+  background: #ccff00;
 }
 
 input[type="range"].term-slider::-moz-range-thumb {
@@ -290,6 +560,41 @@ input[type="range"].term-slider::-moz-range-thumb {
     0 0 16px rgba(204, 255, 0, 0.65),
     0 2px 6px rgba(0, 0, 0, 0.45);
   cursor: grab;
+}
+
+/* Page scrollbar (right edge of the site) */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#root::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+#root::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border-left: 1px solid rgba(204, 255, 0, 0.12);
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+#root::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #f4ff7a 0%, #ccff00 40%, #6f9a00 100%);
+  border-radius: 999px;
+  border: 2px solid #0a0a0a;
+  box-shadow: 0 0 10px rgba(204, 255, 0, 0.35);
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+#root::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffffa0 0%, #d7ff00 45%, #8ecc00 100%);
+  box-shadow: 0 0 14px rgba(204, 255, 0, 0.55);
+}
+
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner {
+  background: #0a0a0a;
 }
 
 .path-card {
