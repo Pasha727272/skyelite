@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { Link, type LinkProps } from "react-router-dom";
 
 const metalClass =
-  "metal-btn inline-flex items-center justify-center rounded-full px-5 py-2.5 text-[11px] font-semibold tracking-[0.14em] text-black";
+  "metal-btn inline-flex items-center justify-center rounded-full px-5 py-2.5 text-[11px] font-semibold tracking-[0.14em] text-white";
 
 type MetalButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;

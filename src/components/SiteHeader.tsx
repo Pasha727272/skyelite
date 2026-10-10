@@ -34,7 +34,7 @@ function NavLink({
     <a
       href={href}
       onClick={onClick}
-      className="px-1.5 text-[10px] font-semibold tracking-[0.14em] text-white/80 transition-colors hover:text-[#ccff00]"
+      className="px-1.5 text-[10px] font-semibold tracking-[0.14em] text-white/80 transition-colors hover:sol"
     >
       {label}
     </a>
@@ -77,7 +77,7 @@ export function SiteHeader({ variant = "home" }: SiteHeaderProps) {
             <Link
               to="/"
               onClick={goHomeTop}
-              className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 text-white/70 transition-colors hover:border-[#ccff00]/40 hover:text-[#ccff00]"
+              className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 text-white/70 transition-colors hover:border-[#14C99A]/55 hover:sol"
               aria-label="Back to home"
             >
               ←
@@ -109,11 +109,11 @@ export function SiteHeader({ variant = "home" }: SiteHeaderProps) {
                 aria-label="Back to top"
               >
                 <img
-                  src="/logo.png?v=2"
+                  src="/logo.png?v=3"
                   alt="STATIO"
                   width={40}
                   height={40}
-                  className="h-10 w-10 object-contain drop-shadow-[0_0_14px_rgba(204,255,0,0.45)]"
+                  className="h-10 w-10 object-contain drop-shadow-[0_0_14px_rgba(135,86,240,0.45)]"
                 />
               </a>
 
@@ -132,7 +132,7 @@ export function SiteHeader({ variant = "home" }: SiteHeaderProps) {
             aria-label="Back to top"
           >
             <img
-              src="/logo.png?v=2"
+              src="/logo.png?v=3"
               alt="STATIO"
               width={36}
               height={36}
@@ -164,7 +164,7 @@ export function SiteHeader({ variant = "home" }: SiteHeaderProps) {
           <div className="mb-4 flex justify-center">
             <a href="/" aria-label="Back to top" onClick={goHomeTop}>
               <img
-                src="/logo.png?v=2"
+                src="/logo.png?v=3"
                 alt="STATIO"
                 width={48}
                 height={48}

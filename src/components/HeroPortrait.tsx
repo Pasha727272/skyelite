@@ -30,14 +30,14 @@ export function HeroPortrait() {
       onMouseMove={onMove}
     >
       <img
-        src="/hero-franklin.png"
+        src="/hero-franklin.png?v=bw"
         alt=""
         className="hero-portrait-img h-full w-full object-cover"
         draggable={false}
       />
 
       <img
-        src="/hero-franklin.png"
+        src="/hero-franklin.png?v=bw"
         alt=""
         aria-hidden
         className="hero-portrait-lit pointer-events-none absolute inset-0 h-full w-full object-cover"
@@ -59,7 +59,7 @@ export function HeroPortrait() {
         className="hero-portrait-beam"
         style={{
           opacity: active ? 1 : 0,
-          background: `radial-gradient(circle 150px at ${pos.x}% ${pos.y}%, rgba(204,255,0,0.22) 0%, transparent 70%)`,
+          background: `radial-gradient(circle 150px at ${pos.x}% ${pos.y}%, rgba(135,86,240,0.22) 0%, transparent 70%)`,
         }}
         aria-hidden
       />

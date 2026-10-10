@@ -17,6 +17,7 @@ import { MetalLink } from "../components/MetalButton";
 import { MarqueeTicker } from "../components/MarqueeTicker";
 import { HeroPortrait } from "../components/HeroPortrait";
 import { RevealOnScroll } from "../components/RevealOnScroll";
+import { EXPLORER_URL } from "../constants";
 
 const STEPS = [
   {
@@ -179,7 +180,7 @@ export function Home() {
         <div className="box-border min-h-[100svh] pt-[var(--top-band)]">
           <div className="mx-auto grid w-full max-w-7xl items-start gap-8 px-4 pb-12 pt-3 md:grid-cols-[1fr_1fr] md:gap-8 md:px-5 md:pb-14 md:pt-4 lg:gap-6 lg:px-6">
           <div className="hero-copy max-w-xl justify-self-start self-center md:-translate-x-2 lg:-translate-x-4 xl:-translate-x-6">
-            <div className="hero-in hero-in-1 mb-6 inline-flex rounded-full border border-[#ccff00]/40 px-3 py-1 text-[10px] tracking-[0.18em] text-[#ccff00]">
+            <div className="hero-in hero-in-1 mb-6 inline-flex rounded-full border border-[#8756F0]/45 px-3 py-1 text-[10px] tracking-[0.18em] sol">
               · STATIO PROTOCOL · $STIO · USD-S ·
             </div>
             <h1 className="mb-5 text-4xl leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
@@ -189,7 +190,7 @@ export function Home() {
                 </span>
               </span>
               <span className="hero-line hero-line-2 block overflow-hidden">
-                <span className="hero-line-inner block text-[#ccff00]">
+                <span className="hero-line-inner block sol">
                   TAKE THE CASH.
                 </span>
               </span>
@@ -232,7 +233,7 @@ export function Home() {
               <div className="mb-1 text-[10px] tracking-[0.16em] text-[#9a9a9a]">
                 {l}
               </div>
-              <div className="text-2xl text-[#ccff00]">{v}</div>
+              <div className="text-2xl sol">{v}</div>
             </div>
           ))}
         </div>
@@ -246,9 +247,9 @@ export function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-3xl tracking-tight md:text-4xl">
-              <span className="text-[#ccff00]">§ 01</span>{" "}
+              <span className="sol">§ 01</span>{" "}
               <span className="text-white">HOW THE</span>{" "}
-              <span className="text-[#ccff00]">OATH WORKS</span>
+              <span className="sol">OATH WORKS</span>
             </h2>
             <p className="text-[11px] tracking-[0.14em] text-[#9a9a9a]">
               CASH WITHOUT SELLING · MARKET ON YOUR DISCIPLINE
@@ -264,12 +265,12 @@ export function Home() {
               >
                 <div
                   className={`frame-form flex h-full flex-col p-5 ${
-                    "active" in s && s.active ? "border-[#ccff00]" : ""
+                    "active" in s && s.active ? "border-[#8756F0]" : ""
                   }`}
                 >
                   <span className="frame-form-corners" aria-hidden />
                   <span className="frame-form-mark">ST-{s.n}</span>
-                  <div className="mb-3 text-[11px] tracking-[0.14em] text-[#ccff00]">
+                  <div className="mb-3 text-[11px] tracking-[0.14em] sol">
                     {s.n} {s.title}
                   </div>
                   <p className="mb-6 flex-1 text-sm font-normal leading-relaxed text-[#cfcfcf]">
@@ -292,7 +293,7 @@ export function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-3xl tracking-tight md:text-4xl">
-              <span className="text-[#ccff00]">§ 02</span>{" "}
+              <span className="sol">§ 02</span>{" "}
               <span className="text-white">THE OATH</span>
             </h2>
             <p className="text-[11px] tracking-[0.14em] text-[#9a9a9a]">
@@ -313,7 +314,7 @@ export function Home() {
                 parallel, a Break tickets market opens: people bet you will fold
                 and sell.
               </p>
-              <p className="rounded-full border border-[#2a2a2a] bg-[#121212] px-4 py-3 text-[11px] tracking-[0.08em] text-[#ccff00]">
+              <p className="rounded-full border border-[#2a2a2a] bg-[#121212] px-4 py-3 text-[11px] tracking-[0.08em] text-[#14C99A]">
                 THEIR PREMIUMS PAY YOUR DEBT. YOUR UPSIDE STAYS YOURS.
               </p>
             </div>
@@ -325,7 +326,7 @@ export function Home() {
                   {Array.from({ length: 12 }).map((_, i) => (
                     <span
                       key={i}
-                      className="h-1.5 w-1.5 rounded-full bg-[#3a3a3a] ring-1 ring-[#ccff00]/15"
+                      className="h-1.5 w-1.5 rounded-full bg-[#3a3a3a] ring-1 ring-[#14C99A]/30"
                     />
                   ))}
                 </div>
@@ -355,7 +356,7 @@ export function Home() {
                         </dt>
                         <dd
                           className={
-                            k === "DEBT LEFT" ? "text-[#ccff00]" : "text-white"
+                            k === "DEBT LEFT" ? "sol" : "text-white"
                           }
                         >
                           {v}
@@ -381,9 +382,9 @@ export function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-3xl tracking-tight md:text-4xl">
-              <span className="text-[#ccff00]">§ 03</span>{" "}
+              <span className="sol">§ 03</span>{" "}
               <span className="text-white">COMMITMENT</span>{" "}
-              <span className="text-[#ccff00]">BOARD</span>
+              <span className="sol">BOARD</span>
             </h2>
             <p className="text-[11px] tracking-[0.14em] text-[#9a9a9a]">
               GRADES OF THE OATH
@@ -402,14 +403,14 @@ export function Home() {
               <tbody>
                 {BOARD.map((row) => (
                   <tr key={row.grade} className="border-b border-[#2a2a2a]">
-                    <td className="px-5 py-4 text-[#ccff00]">
-                      <span className="mr-2 inline-block h-2 w-2 rounded-sm bg-[#ccff00]/80" />
+                    <td className="px-5 py-4 sol">
+                      <span className="mr-2 inline-block h-2 w-2 rounded-sm sol-fill" />
                       {row.grade}
                     </td>
                     <td className="px-5 py-4 font-normal text-[#cfcfcf]">
                       {row.paper}
                     </td>
-                    <td className="px-5 py-4 text-[#ccff00]">{row.term}</td>
+                    <td className="px-5 py-4 sol">{row.term}</td>
                     <td className="px-5 py-4 text-[11px] tracking-wider text-[#9a9a9a]">
                       {row.desks}
                     </td>
@@ -425,9 +426,9 @@ export function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-3xl tracking-tight md:text-4xl">
-              <span className="text-[#ccff00]">§ 04</span>{" "}
+              <span className="sol">§ 04</span>{" "}
               <span className="text-white">THREE</span>{" "}
-              <span className="text-[#ccff00]">DESKS</span>
+              <span className="sol">DESKS</span>
             </h2>
             <p className="text-[11px] tracking-[0.14em] text-[#9a9a9a]">
               THE LOOP PAYS THE DEBT
@@ -438,10 +439,10 @@ export function Home() {
               <div
                 key={d.id}
                 className={`panel flex flex-col p-5 ${
-                  i === 0 ? "border-[#ccff00]" : ""
+                  i === 0 ? "border-[#8756F0]" : ""
                 }`}
               >
-                <div className="mb-2 text-[11px] tracking-[0.14em] text-[#ccff00]">
+                <div className="mb-2 text-[11px] tracking-[0.14em] sol">
                   {d.tag}
                 </div>
                 <h3 className="mb-3 text-xl">{d.title}</h3>
@@ -450,7 +451,7 @@ export function Home() {
                 </p>
                 <div className="flex items-center justify-between border-t border-[#2a2a2a] pt-3 text-[10px] tracking-[0.12em]">
                   <span className="text-[#9a9a9a]">{d.footL}</span>
-                  <span className="text-[#ccff00]">{d.footR}</span>
+                  <span className="sol">{d.footR}</span>
                 </div>
               </div>
             ))}
@@ -465,9 +466,9 @@ export function Home() {
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-3xl tracking-tight md:text-4xl">
-              <span className="text-[#ccff00]">§ 05</span>{" "}
+              <span className="sol">§ 05</span>{" "}
               <span className="text-white">BREAK</span>{" "}
-              <span className="text-[#ccff00]">TICKETS</span>
+              <span className="sol">TICKETS</span>
             </h2>
             <p className="text-[11px] tracking-[0.14em] text-[#9a9a9a]">
               BET ON SURRENDER · FUND THE HOLD
@@ -481,13 +482,13 @@ export function Home() {
                   {Array.from({ length: 10 }).map((_, i) => (
                     <span
                       key={i}
-                      className="h-1.5 w-1.5 rounded-full bg-[#3a3a3a] ring-1 ring-[#ccff00]/15"
+                      className="h-1.5 w-1.5 rounded-full bg-[#3a3a3a] ring-1 ring-[#14C99A]/30"
                     />
                   ))}
                 </div>
                 <div className="relative z-[1] pl-2">
                   <div className="mb-4 flex items-center justify-between gap-3">
-                    <span className="text-[10px] tracking-[0.16em] text-[#ccff00]">
+                    <span className="text-[10px] tracking-[0.16em] sol">
                       BREAK BOOK // LIVE
                     </span>
                     <span className="stamp !rotate-[-8deg]">OPEN</span>
@@ -507,7 +508,7 @@ export function Home() {
                         <dt className="text-[10px] tracking-[0.12em] text-[#9a9a9a]">
                           {k}
                         </dt>
-                        <dd className="text-[#ccff00]">{v}</dd>
+                        <dd className="sol">{v}</dd>
                       </div>
                     ))}
                   </dl>
@@ -557,7 +558,7 @@ export function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-3xl font-normal tracking-[0.04em] md:text-4xl">
-              <span className="font-normal text-[#ccff00]">§ 06</span>{" "}
+              <span className="font-normal sol">§ 06</span>{" "}
               <span className="font-light text-white">THE PATH</span>
             </h2>
             <p className="text-[11px] font-normal tracking-[0.18em] text-[#9a9a9a]">
@@ -575,11 +576,11 @@ export function Home() {
                   PATH_HEIGHTS[i]
                 } ${
                   ladder === i
-                    ? "border-[#ccff00] bg-[#161616] shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
+                    ? "border-[#8756F0] bg-[#161616] shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
                     : "border-[#2a2a2a] bg-[#141414]"
                 }`}
               >
-                <span className="text-2xl font-light tracking-[0.08em] text-[#ccff00] md:text-[1.75rem]">
+                <span className="text-2xl font-light tracking-[0.08em] sol md:text-[1.75rem]">
                   {step.v}
                 </span>
                 <span className="text-center text-[9px] font-normal tracking-[0.16em] text-[#8a8a8a]">
@@ -589,8 +590,8 @@ export function Home() {
             ))}
           </div>
 
-          <div className="rounded-2xl border border-[#ccff00]/35 bg-[#121212] px-5 py-4 text-sm font-normal leading-relaxed text-[#cfcfcf] transition-colors duration-300">
-            <span className="font-medium tracking-[0.08em] text-[#ccff00]">
+          <div className="rounded-2xl border border-[#8756F0]/40 bg-[#121212] px-5 py-4 text-sm font-normal leading-relaxed text-[#cfcfcf] transition-colors duration-300">
+            <span className="font-medium tracking-[0.08em] sol">
               AT {PATH_STEPS[ladder].v}
             </span>
             <span className="text-[#6a6a6a]"> · </span>
@@ -605,48 +606,51 @@ export function Home() {
       >
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-2 text-3xl tracking-tight md:text-4xl">
-            <span className="text-[#ccff00]">§ 07</span>{" "}
+            <span className="sol">§ 07</span>{" "}
             <span className="text-white">THE HOUSE TOKEN</span>
           </h2>
           <p className="mb-10 text-sm tracking-[0.12em] text-[#9a9a9a]">
             $STIO · FIXED SUPPLY · OATH COLLATERAL
           </p>
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="panel border-[#ccff00]/50 p-5">
-              <div className="mb-3 text-[10px] tracking-[0.16em] text-[#ccff00]">
+            <div className="panel border-[#8756F0]/55 p-5">
+              <div className="mb-3 text-[10px] tracking-[0.16em] sol">
                 WHAT $STIO DOES
               </div>
               <div className="space-y-3 text-sm font-normal text-[#cfcfcf]">
                 <p>
-                  <span className="text-[#ccff00]">THE OATH ASSET.</span> Lock
+                  <span className="sol">THE OATH ASSET.</span> Lock
                   $STIO under oath to mint USD-S without selling.
                 </p>
                 <p>
-                  <span className="text-[#ccff00]">KEEP THE UPSIDE.</span> Honor
+                  <span className="sol">KEEP THE UPSIDE.</span> Honor
                   the term — coin and growth stay with you.
                 </p>
               </div>
             </div>
-            <div className="panel p-5">
-              <div className="mb-3 text-[10px] tracking-[0.16em] text-[#ccff00]">
-                TERMS
+            <RevealOnScroll variant="up" delay={90} className="h-full">
+              <div className="frame-form flex h-full flex-col p-5">
+                <span className="frame-form-corners" aria-hidden />
+                <div className="mb-3 text-[10px] tracking-[0.16em] sol">
+                  TERMS
+                </div>
+                <dl className="space-y-2 text-sm">
+                  {[
+                    ["SUPPLY", "FIXED"],
+                    ["STABLE", "USD-S"],
+                    ["ACT", "OATH / BREAK"],
+                    ["PLEDGE MODEL", "OATH, NOT BANK"],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex justify-between">
+                      <dt className="text-[10px] tracking-[0.12em] text-[#9a9a9a]">
+                        {k}
+                      </dt>
+                      <dd className="sol">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
-              <dl className="space-y-2 text-sm">
-                {[
-                  ["SUPPLY", "FIXED"],
-                  ["STABLE", "USD-S"],
-                  ["ACT", "OATH / BREAK"],
-                  ["PLEDGE MODEL", "OATH, NOT BANK"],
-                ].map(([k, v]) => (
-                  <div key={k} className="flex justify-between">
-                    <dt className="text-[10px] tracking-[0.12em] text-[#9a9a9a]">
-                      {k}
-                    </dt>
-                    <dd className="text-[#ccff00]">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+            </RevealOnScroll>
           </div>
         </div>
       </section>
@@ -654,7 +658,7 @@ export function Home() {
       <section id="honesty" className="px-5 py-16 md:px-8 md:py-20">
         <div className="mx-auto max-w-7xl">
           <div className="panel p-6 md:p-8">
-            <div className="mb-6 text-[11px] tracking-[0.16em] text-[#ccff00]">
+            <div className="mb-6 text-[11px] tracking-[0.16em] sol">
               BEFORE YOU COME TO THE WINDOW
             </div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -677,7 +681,7 @@ export function Home() {
                 ],
               ].map(([t, b]) => (
                 <div key={t}>
-                  <h3 className="mb-2 text-[12px] tracking-[0.08em] text-[#ccff00]">
+                  <h3 className="mb-2 text-[12px] tracking-[0.08em] sol">
                     {t}
                   </h3>
                   <p className="text-sm font-normal leading-relaxed text-[#cfcfcf]">
@@ -711,25 +715,35 @@ export function Home() {
             <a href="#honesty" className="hover:text-white">
               DOCS
             </a>
-            <a href="#" className="hover:text-white">
+            <a
+              href="https://x.com/Statio_hq"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white"
+            >
               X
             </a>
-            <a href="#" className="hover:text-white">
+            <a
+              href={EXPLORER_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white"
+            >
               EXPLORER
             </a>
           </div>
           <div className="flex gap-2">
-            <span className="rounded-full border border-[#ccff00]/50 px-3 py-1 text-[10px] tracking-[0.12em] text-[#ccff00]">
+            <span className="rounded-full border border-[#8756F0]/55 px-3 py-1 text-[10px] tracking-[0.12em] sol">
               UNAUDITED
             </span>
-            <span className="rounded-full border border-[#ccff00]/50 px-3 py-1 text-[10px] tracking-[0.12em] text-[#ccff00]">
+            <span className="rounded-full border border-[#8756F0]/55 px-3 py-1 text-[10px] tracking-[0.12em] sol">
               CAPS APPLY
             </span>
           </div>
         </div>
         <div className="mx-auto mt-8 flex max-w-7xl flex-col justify-between gap-2 border-t border-[#2a2a2a] pt-4 text-[10px] tracking-[0.12em] text-[#9a9a9a] md:flex-row">
           <span>© 2026 STATIO</span>
-          <span className="text-[#ccff00]">OATHS RUN TO THEIR DATE</span>
+          <span className="sol">OATHS RUN TO THEIR DATE</span>
         </div>
       </footer>
     </div>

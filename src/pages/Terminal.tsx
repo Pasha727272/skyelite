@@ -107,7 +107,7 @@ export function Terminal() {
       <div className="grid-bg border-b border-[#2a2a2a] pt-[var(--top-band)]">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 pb-7 pt-3 md:flex-row md:items-end md:justify-between md:px-8 md:pt-4">
           <div>
-            <div className="mb-2 text-[10px] tracking-[0.18em] text-[#ccff00]">
+            <div className="mb-2 text-[10px] tracking-[0.18em] sol">
               DESK TERMINAL
             </div>
             <div className="flex items-baseline gap-3">
@@ -115,7 +115,7 @@ export function Terminal() {
                 value={184 + Math.floor(locked / 5000)}
                 className="text-5xl tracking-tight md:text-6xl"
               />
-              <span className="text-sm tracking-[0.16em] text-[#ccff00]">
+              <span className="text-sm tracking-[0.16em] sol">
                 OPEN OATHS
               </span>
             </div>
@@ -137,7 +137,7 @@ export function Terminal() {
                       suffix={s.suffix}
                     />
                   )}
-                  <span className="h-1 w-6 rounded-sm bg-[#ccff00]/70" />
+                  <span className="h-1 w-6 rounded-sm sol-fill" />
                 </div>
               </div>
             ))}
@@ -156,7 +156,7 @@ export function Terminal() {
               onClick={() => setTab(t)}
               className={`rounded-xl px-4 py-2.5 text-[11px] tracking-[0.14em] transition-colors ${
                 tab === t
-                  ? "border border-[#ccff00] bg-[#1a1a1a] text-[#ccff00]"
+                  ? "border border-[#8756F0] bg-[#1a1a1a] text-[#14C99A]"
                   : "border border-[#2a2a2a] bg-[#121212] text-[#cfcfcf] hover:border-[#3a3a3a]"
               }`}
             >
@@ -169,7 +169,7 @@ export function Terminal() {
           <div className="mb-4 grid gap-4 lg:grid-cols-2">
             <div className="panel p-5 md:p-6">
               <div className="mb-1 text-xl tracking-wide">COMMIT AN OATH</div>
-              <div className="mb-5 text-[10px] tracking-[0.14em] text-[#ccff00]">
+              <div className="mb-5 text-[10px] tracking-[0.14em] sol">
                 FORM ST-01 · OATH
               </div>
 
@@ -177,7 +177,7 @@ export function Terminal() {
                 <span className="mb-1.5 block text-[10px] tracking-[0.14em] text-[#9a9a9a]">
                   $STIO TO LOCK
                 </span>
-                <div className="flex items-center rounded-xl border border-[#2a2a2a] bg-black px-3 focus-within:border-[#ccff00]/40">
+                <div className="flex items-center rounded-xl border border-[#2a2a2a] bg-black px-3 focus-within:border-[#14C99A]/55">
                   <input
                     inputMode="decimal"
                     value={amount}
@@ -208,7 +208,7 @@ export function Terminal() {
                       setTermDays(Number(digits));
                     }}
                     placeholder="e.g. 90"
-                    className="w-full rounded-xl border border-[#2a2a2a] bg-black px-3 py-3 text-sm outline-none placeholder:text-[#5a5a5a] focus:border-[#ccff00]/40"
+                    className="w-full rounded-xl border border-[#2a2a2a] bg-black px-3 py-3 text-sm outline-none placeholder:text-[#5a5a5a] focus:border-[#14C99A]/55"
                   />
                 </label>
                 <label>
@@ -220,7 +220,7 @@ export function Terminal() {
                     value={floor}
                     onChange={(e) => setFloor(e.target.value.replace(/[^\d.]/g, ""))}
                     placeholder="e.g. 0.42"
-                    className="w-full rounded-xl border border-[#2a2a2a] bg-black px-3 py-3 text-sm outline-none placeholder:text-[#5a5a5a] focus:border-[#ccff00]/40"
+                    className="w-full rounded-xl border border-[#2a2a2a] bg-black px-3 py-3 text-sm outline-none placeholder:text-[#5a5a5a] focus:border-[#14C99A]/55"
                   />
                 </label>
               </div>
@@ -232,7 +232,7 @@ export function Terminal() {
                 <div className="flex items-center gap-2 rounded-xl border border-[#2a2a2a] bg-black px-3">
                   <span
                     className={`min-w-0 flex-1 select-none py-3 text-sm ${
-                      approved ? "text-[#7dffa0]" : "text-[#5a5a5a]"
+                      approved ? "text-[#14C99A]" : "text-[#5a5a5a]"
                     }`}
                   >
                     {approved
@@ -242,7 +242,7 @@ export function Terminal() {
                   <button
                     type="button"
                     onClick={() => setApproved(true)}
-                    className="shrink-0 rounded-lg bg-[#1a1a1a] px-3 py-1.5 text-[10px] tracking-wider text-[#ccff00] transition-colors hover:bg-[#222]"
+                    className="shrink-0 rounded-lg bg-[#1a1a1a] px-3 py-1.5 text-[10px] tracking-wider sol transition-colors hover:bg-[#222]"
                   >
                     APPROVE
                   </button>
@@ -258,7 +258,7 @@ export function Terminal() {
                     value={collateralUsd}
                     decimals={0}
                     prefix="$"
-                    className="text-[#ccff00]"
+                    className="sol"
                   />
                 </div>
                 <div>
@@ -269,20 +269,20 @@ export function Terminal() {
                     value={ltv * 100}
                     decimals={0}
                     suffix="%"
-                    className="text-[#ccff00]"
+                    className="sol"
                   />
                 </div>
                 <div>
                   <div className="text-[9px] tracking-[0.12em] text-[#9a9a9a]">
                     GRADE
                   </div>
-                  <span className="text-[#ccff00]">{locked || termDays ? grade : "—"}</span>
+                  <span className="sol">{locked || termDays ? grade : "—"}</span>
                 </div>
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
                 <MetalButton className="min-w-[120px] px-8">COMMIT</MetalButton>
-                <span className="text-[11px] tracking-[0.1em] text-[#ccff00]">
+                <span className="text-[11px] tracking-[0.1em] sol">
                   opens ticket · unlocks USD-S draw
                 </span>
               </div>
@@ -290,7 +290,7 @@ export function Terminal() {
 
             <div className="panel p-5 md:p-6">
               <div className="mb-1 text-xl tracking-wide">DRAW USD-S</div>
-              <div className="mb-5 text-[10px] tracking-[0.14em] text-[#ccff00]">
+              <div className="mb-5 text-[10px] tracking-[0.14em] sol">
                 FORM ST-02 · DISBURSE
               </div>
 
@@ -298,7 +298,7 @@ export function Terminal() {
                 <span className="mb-1.5 block text-[10px] tracking-[0.14em] text-[#9a9a9a]">
                   OATH ID
                 </span>
-                <div className="flex items-center gap-2 rounded-xl border border-[#2a2a2a] bg-black px-3 focus-within:border-[#ccff00]/40">
+                <div className="flex items-center gap-2 rounded-xl border border-[#2a2a2a] bg-black px-3 focus-within:border-[#14C99A]/55">
                   <input
                     value={oathId}
                     onChange={(e) => {
@@ -321,9 +321,9 @@ export function Terminal() {
               <dl className="mb-5 space-y-2.5 text-sm">
                 {(
                   [
-                    ["grade", loaded || locked ? grade : "—", "#ccff00", null],
+                    ["grade", loaded || locked ? grade : "—", "#14C99A", null],
                     ["locked", locked, "#c8e06a", 0],
-                    ["debt", effectiveDebt, "#7dffa0", 0],
+                    ["debt", effectiveDebt, "#14C99A", 0],
                     ["max draw", maxDraw, "#6ec8ff", 0],
                     ["debt cover", debtCoverPct, "#5a7dff", 1],
                   ] as const
@@ -354,7 +354,7 @@ export function Terminal() {
                 <span className="mb-1.5 block text-[10px] tracking-[0.14em] text-[#9a9a9a]">
                   AMOUNT, USD-S
                 </span>
-                <div className="flex items-center gap-2 rounded-xl border border-[#2a2a2a] bg-black px-3 focus-within:border-[#ccff00]/40">
+                <div className="flex items-center gap-2 rounded-xl border border-[#2a2a2a] bg-black px-3 focus-within:border-[#14C99A]/55">
                   <input
                     inputMode="decimal"
                     value={drawAmt}
@@ -381,7 +381,7 @@ export function Terminal() {
           <div className="mb-4 grid gap-4 lg:grid-cols-2">
             <div className="panel p-5 md:p-6">
               <div className="mb-1 text-xl tracking-wide">BUY BREAK</div>
-              <div className="mb-5 text-[10px] tracking-[0.14em] text-[#ccff00]">
+              <div className="mb-5 text-[10px] tracking-[0.14em] sol">
                 FORM ST-03 · BOOK
               </div>
               <p className="mb-5 text-sm font-normal leading-relaxed text-[#cfcfcf]">
@@ -397,7 +397,7 @@ export function Terminal() {
                   value={oathId}
                   onChange={(e) => setOathId(e.target.value)}
                   placeholder="e.g. 184"
-                  className="w-full rounded-xl border border-[#2a2a2a] bg-black px-3 py-3 text-sm outline-none placeholder:text-[#5a5a5a] focus:border-[#ccff00]/40"
+                  className="w-full rounded-xl border border-[#2a2a2a] bg-black px-3 py-3 text-sm outline-none placeholder:text-[#5a5a5a] focus:border-[#14C99A]/55"
                 />
               </label>
               <label className="mb-5 block">
@@ -409,7 +409,7 @@ export function Terminal() {
                   value={breakAmt}
                   onChange={(e) => setBreakAmt(e.target.value.replace(/[^\d.]/g, ""))}
                   placeholder="e.g. 250"
-                  className="w-full rounded-xl border border-[#2a2a2a] bg-black px-3 py-3 text-sm outline-none placeholder:text-[#5a5a5a] focus:border-[#ccff00]/40"
+                  className="w-full rounded-xl border border-[#2a2a2a] bg-black px-3 py-3 text-sm outline-none placeholder:text-[#5a5a5a] focus:border-[#14C99A]/55"
                 />
               </label>
               <div className="mb-4 grid grid-cols-2 gap-3 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-3 text-sm">
@@ -421,7 +421,7 @@ export function Terminal() {
                     value={premiumPerHour}
                     decimals={2}
                     prefix="$"
-                    className="text-[#ccff00]"
+                    className="sol"
                   />
                 </div>
                 <div>
@@ -432,36 +432,36 @@ export function Terminal() {
                     value={breakCover}
                     decimals={1}
                     suffix="%"
-                    className="text-[#ccff00]"
+                    className="sol"
                   />
                 </div>
               </div>
               <MetalButton className="w-full py-3">BUY BREAK</MetalButton>
             </div>
             <div className="panel p-5 md:p-6">
-              <div className="mb-4 text-[10px] tracking-[0.14em] text-[#ccff00]">
+              <div className="mb-4 text-[10px] tracking-[0.14em] sol">
                 LIVE BOOK
               </div>
               <dl className="space-y-3 text-sm">
                 <div className="flex justify-between border-b border-[#2a2a2a] pb-2">
                   <dt className="text-[#9a9a9a]">open interest</dt>
-                  <dd className="text-[#ccff00]">
+                  <dd className="sol">
                     <AnimatedNumber value={84200 + premium} decimals={0} prefix="$" />
                   </dd>
                 </div>
                 <div className="flex justify-between border-b border-[#2a2a2a] pb-2">
                   <dt className="text-[#9a9a9a]">premium / hr</dt>
-                  <dd className="text-[#ccff00]">
+                  <dd className="sol">
                     <AnimatedNumber value={420 + premiumPerHour} decimals={2} prefix="$" />
                   </dd>
                 </div>
                 <div className="flex justify-between border-b border-[#2a2a2a] pb-2">
                   <dt className="text-[#9a9a9a]">top oath</dt>
-                  <dd className="text-[#ccff00]">#{oathId || "184"}</dd>
+                  <dd className="sol">#{oathId || "184"}</dd>
                 </div>
                 <div className="flex justify-between border-b border-[#2a2a2a] pb-2">
                   <dt className="text-[#9a9a9a]">status</dt>
-                  <dd className="text-[#7dffa0]">OPEN</dd>
+                  <dd className="text-[#14C99A]">OPEN</dd>
                 </div>
               </dl>
             </div>
@@ -474,13 +474,13 @@ export function Terminal() {
               <div className="mb-1 text-lg font-light tracking-[0.12em] text-white">
                 TERM
               </div>
-              <div className="mb-5 text-[10px] font-normal tracking-[0.16em] text-[#ccff00]">
+              <div className="mb-5 text-[10px] font-normal tracking-[0.16em] sol">
                 HOLD CLOCK · LIVE MATH
               </div>
               <dl className="mb-6 space-y-3 text-sm font-normal">
                 <div className="flex items-center justify-between">
                   <dt className="text-[#9a9a9a]">premium inflow</dt>
-                  <dd className="text-[#ccff00]">
+                  <dd className="sol">
                     <AnimatedNumber
                       instant
                       value={premiumPerHour * 24}
@@ -492,19 +492,19 @@ export function Terminal() {
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-[#9a9a9a]">break cover</dt>
-                  <dd className="text-[#ccff00]">
+                  <dd className="sol">
                     <AnimatedNumber instant value={breakCover} decimals={1} suffix="%" />
                   </dd>
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-[#9a9a9a]">debt left</dt>
-                  <dd className="text-[#ccff00]">
+                  <dd className="sol">
                     <AnimatedNumber instant value={effectiveDebt} decimals={0} prefix="$" />
                   </dd>
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-[#9a9a9a]">days remaining</dt>
-                  <dd className="text-[#ccff00]">
+                  <dd className="sol">
                     <AnimatedNumber instant value={termDays} decimals={0} min={0} />
                   </dd>
                 </div>
@@ -524,7 +524,7 @@ export function Terminal() {
                 style={{ ["--fill" as string]: sliderFill }}
                 aria-label="Term length in days"
               />
-              <div className="mb-4 flex items-baseline gap-2 text-2xl font-light text-[#ccff00]">
+              <div className="mb-4 flex items-baseline gap-2 text-2xl font-light sol">
                 <AnimatedNumber
                   instant
                   value={years}
@@ -542,14 +542,14 @@ export function Terminal() {
 
             <div className="panel p-5 md:p-6">
               <div className="mb-1 text-xl tracking-wide">REPAY & CLOSE</div>
-              <div className="mb-5 text-[10px] tracking-[0.14em] text-[#ccff00]">
+              <div className="mb-5 text-[10px] tracking-[0.14em] sol">
                 FORM ST-05 · SETTLEMENT
               </div>
               <label className="mb-4 block">
                 <span className="mb-1.5 block text-[10px] tracking-[0.14em] text-[#9a9a9a]">
                   AMOUNT, USD-S
                 </span>
-                <div className="flex items-center gap-2 rounded-xl border border-[#2a2a2a] bg-black px-3 focus-within:border-[#ccff00]/40">
+                <div className="flex items-center gap-2 rounded-xl border border-[#2a2a2a] bg-black px-3 focus-within:border-[#14C99A]/55">
                   <input
                     inputMode="decimal"
                     value={repayAmt}
@@ -577,7 +577,7 @@ export function Terminal() {
                     value={Math.max(0, effectiveDebt)}
                     decimals={0}
                     prefix="$"
-                    className="text-[#ccff00]"
+                    className="sol"
                   />
                 </div>
               </div>
@@ -596,7 +596,7 @@ export function Terminal() {
               </p>
               <button
                 type="button"
-                className="w-full rounded-xl border border-[#2a2a2a] py-3 text-[11px] tracking-[0.14em] text-[#9a9a9a] transition-colors hover:border-[#ccff00]/40 hover:text-white"
+                className="w-full rounded-xl border border-[#2a2a2a] py-3 text-[11px] tracking-[0.14em] text-[#9a9a9a] transition-colors hover:border-[#14C99A]/55 hover:text-white"
               >
                 CLOSE OATH
               </button>
@@ -631,7 +631,7 @@ export function Terminal() {
                     value={v as number}
                     decimals={d as number}
                     prefix={p as string}
-                    className="text-xl text-[#ccff00]"
+                    className="text-xl sol"
                   />
                 </div>
               ))}

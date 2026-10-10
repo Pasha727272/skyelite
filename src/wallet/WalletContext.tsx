@@ -8,12 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import {
-  disconnectWallet,
-  loadSession,
-  saveSession,
-  warmWalletProviders,
-} from "./connect";
+import { disconnectWallet, loadSession, saveSession } from "./connect";
 import type { WalletSession } from "./types";
 
 type WalletContextValue = {
@@ -39,7 +34,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    warmWalletProviders();
     const saved = loadSession();
     if (saved) setSession(saved);
   }, []);
@@ -47,8 +41,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const openModal = useCallback(() => {
     setError(null);
     setModalOpen(true);
-    // Refresh discovery when opening the modal
-    warmWalletProviders();
   }, []);
 
   const closeModal = useCallback(() => {
